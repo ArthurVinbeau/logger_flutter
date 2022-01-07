@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -11,11 +13,15 @@ void main() {
 
 var logger = Logger(
   printer: PrettyPrinter(),
+  output: LogConsole.wrap(innerOutput: ConsoleOutput())
 );
 
 var loggerNoStack = Logger(
-  printer: PrettyPrinter(methodCount: 0),
+  printer: PrettyPrinter(methodCount: 0),  output: LogConsole.wrap(innerOutput: ConsoleOutput())
+
 );
+
+final rand = Random();
 
 void log() {
   logger.d("Log message with 2 methods");
@@ -26,7 +32,7 @@ void log() {
 
   logger.e("Error! Something bad happened", "Test Error");
 
-  loggerNoStack.v({"key": 5, "value": "something"});
+  loggerNoStack.v({"key": rand.nextInt(100), "value": "something"});
 
   Future.delayed(Duration(seconds: 5), log);
 }
@@ -38,7 +44,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: LogConsoleOnShake(
-          dark: true,
           child: Center(
             child: Text("Shake Phone to open Console."),
           ),
