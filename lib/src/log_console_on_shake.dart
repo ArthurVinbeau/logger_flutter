@@ -7,6 +7,7 @@ class LogConsoleOnShake extends StatefulWidget {
   final int minTimeBetweenShakes;
   final int shakeCountResetTime;
   final int minShakeCount;
+  final bool fitWidth;
 
   LogConsoleOnShake({
     required this.child,
@@ -15,6 +16,7 @@ class LogConsoleOnShake extends StatefulWidget {
     this.minTimeBetweenShakes = 160,
     this.shakeCountResetTime = 1500,
     this.minShakeCount = 2,
+    this.fitWidth = true,
   });
 
   @override
@@ -63,6 +65,7 @@ class _LogConsoleOnShakeState extends State<LogConsoleOnShake> {
     var logConsole = LogConsole(
       showCloseButton: true,
       dark: false,
+      fitWidth: widget.fitWidth,
     );
     PageRoute route;
     if (Platform.isIOS) {
