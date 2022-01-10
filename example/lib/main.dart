@@ -12,14 +12,13 @@ void main() {
 }
 
 var logger = Logger(
-  printer: PrettyPrinter(),
-  output: LogConsole.wrap(innerOutput: ConsoleOutput())
-);
+    printer: PrettyPrinter(
+      lineLength: 30,
+    ),
+    output: LogConsole.wrap(innerOutput: ConsoleOutput()));
 
 var loggerNoStack = Logger(
-  printer: PrettyPrinter(methodCount: 0),  output: LogConsole.wrap(innerOutput: ConsoleOutput())
-
-);
+    printer: PrettyPrinter(methodCount: 0, lineLength: 30), output: LogConsole.wrap(innerOutput: ConsoleOutput()));
 
 final rand = Random();
 
@@ -33,6 +32,8 @@ void log() {
   logger.e("Error! Something bad happened", "Test Error");
 
   loggerNoStack.v({"key": rand.nextInt(100), "value": "something"});
+
+  logger.v("azeazdfjkdhfgiudfygiud fuhiogufdhgi udfhogius dhogiudfhg iodfuhgodiugh fidguhfi guhdiguh dgi");
 
   Future.delayed(Duration(seconds: 5), log);
 }
