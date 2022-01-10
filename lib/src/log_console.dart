@@ -32,12 +32,13 @@ class _WrappedOutput implements LogOutput {
 class LogConsole extends StatefulWidget {
   final bool dark;
   final bool showCloseButton;
+  final bool fitWidth;
 
   static ListQueue<OutputEvent> _outputEventBuffer = ListQueue();
   static bool _initialized = false;
   static final _newLogs = ChangeNotifier();
 
-  LogConsole({this.dark = false, this.showCloseButton = false})
+  LogConsole({this.dark = false, this.showCloseButton = false, this.fitWidth = false})
       : assert(_initialized, 'Please call LogConsole.init() first.');
 
   /// Attach this LogOutput to your logger instance:
@@ -217,7 +218,7 @@ class _LogConsoleState extends State<LogConsole> {
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: SizedBox(
-              width: 1600,
+              width: widget.fitWidth ? MediaQuery.of(context).size.width : 1600,
               child: RichText(
                 text: TextSpan(children: [for (var sublist in _filteredBuffer.map((e) => e.spans)) ...sublist]),
               )),
