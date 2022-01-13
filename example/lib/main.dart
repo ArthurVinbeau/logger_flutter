@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -20,7 +18,7 @@ var logger = Logger(
 var loggerNoStack = Logger(
     printer: PrettyPrinter(methodCount: 0, lineLength: 30), output: LogConsole.wrap(innerOutput: ConsoleOutput()));
 
-final rand = Random();
+int counter = 0;
 
 void log() {
   logger.d("Log message with 2 methods");
@@ -31,7 +29,7 @@ void log() {
 
   logger.e("Error! Something bad happened", "Test Error");
 
-  loggerNoStack.v({"key": rand.nextInt(100), "value": "something"});
+  loggerNoStack.v({"key": counter++, "value": "something"});
 
   logger.v("azeazdfjkdhfgiudfygiud fuhiogufdhgi udfhogius dhogiudfhg iodfuhgodiugh fidguhfi guhdiguh dgi");
 
