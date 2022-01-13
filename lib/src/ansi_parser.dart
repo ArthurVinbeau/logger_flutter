@@ -112,7 +112,7 @@ class AnsiParser {
       case 199:
         return dark ? Colors.pink.shade300 : Colors.pink.shade700;
       default:
-        return dark ? Colors.white : Colors.black;
+        return dark ? Colors.grey.shade300 : Colors.grey;
     }
   }
 
@@ -120,7 +120,7 @@ class AnsiParser {
     return TextSpan(
       text: text,
       style: TextStyle(
-        color: foreground ?? Colors.purple,
+        color: foreground ?? (dark ? Colors.white : Colors.black),
         backgroundColor: background,
         fontSize: fontSize,
       ),
