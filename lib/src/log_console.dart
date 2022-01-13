@@ -204,24 +204,15 @@ class _LogConsoleState extends State<LogConsole> {
   }
 
   Widget _buildLogContent() {
-    final text = StringBuffer();
-    _filteredBuffer.forEach((e) {
-      text.write(e.text);
-      text.write('\n');
-    });
+    final children = _filteredBuffer.map((e) => RichText(text: TextSpan(children: e.spans))).toList();
 
     return Container(
       color: widget.dark ? Colors.black : Colors.grey[150],
       child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        controller: _scrollController,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: SizedBox(
-              width: widget.fitWidth ? MediaQuery.of(context).size.width : 1600,
-              child: RichText(
-                text: TextSpan(children: [for (var sublist in _filteredBuffer.map((e) => e.spans)) ...sublist]),
-              )),
+        scrollDirection: Axis.horizontal,
+        child: SizedBox(
+          width: widget.fitWidth ? MediaQuery.of(context).size.width : 1600,
+          child: ListView(scrollDirection: Axis.vertical, controller: _scrollController, children: children),
         ),
       ),
     );
@@ -332,9 +323,8 @@ class _LogConsoleState extends State<LogConsole> {
       _followBottom = true;
     });
 
-    var scrollPosition = _scrollController.position;
-    await _scrollController.animateTo(
-      scrollPosition.maxScrollExtent,
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
       duration: Duration(milliseconds: 400),
       curve: Curves.easeOut,
     );
